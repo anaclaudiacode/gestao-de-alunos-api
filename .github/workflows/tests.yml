@@ -11,6 +11,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: QA
+    env: 
+      PORT: ${{ secrets.PORT }}
+      BASE_URL: ${{ secrets.BASE_URL }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+      ADMIN_SENHA: ${{ secrets.ADMIN_SENHA }}
+      ALUNO_EMAIL: ${{ secrets.ALUNO_EMAIL }}
+      ALUNO_SENHA: ${{ secrets.ALUNO_SENHA }}
 
     services:
       mongodb:
@@ -36,7 +45,8 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
+      - name: Iniciar API 
+        run: npm start & 
+
       - name: Executar testes
         run: npm test
-        env:
-          MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos-test
